@@ -16,6 +16,7 @@ import static com.bouali.todo.utils.Constants.APP_ROOT;
 public interface CategoryApi {
 
     /**
+     *
      * @param categoryDto
      * @return
      */
@@ -38,11 +39,15 @@ public interface CategoryApi {
     );
 
     /**
-     * @param user
-     * @return
+     * PATCH /categories - updates an existing category
+     * @param user Category update body
+     * @return ResponseEntity<CategoryDto> The Category DTO containing the response data
      */
     @PatchMapping(
-            value = APP_ROOT + "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            value = APP_ROOT + "/categories",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     @ApiOperation(
             value = "Update Category",
             notes = "Updates an existing Category ",
@@ -59,7 +64,10 @@ public interface CategoryApi {
     /**
      * @return
      */
-    @GetMapping(value = APP_ROOT + "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = APP_ROOT + "/categories",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     @ApiOperation(
             value = "Category Details",
             notes = "Returns the list of the categories",
@@ -75,7 +83,8 @@ public interface CategoryApi {
      * @return
      */
     @GetMapping(
-            value = APP_ROOT + "/categories/todos/{id:.+}", produces = MediaType.APPLICATION_JSON_VALUE
+            value = APP_ROOT + "/categories/todos/{id:.+}",
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(
             value = "Todo Details by category ID",
@@ -95,7 +104,10 @@ public interface CategoryApi {
      * @param userId
      * @return
      */
-    @GetMapping(value = APP_ROOT + "/categories/todos/today/{userId:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = APP_ROOT + "/categories/todos/today/{userId:.+}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     @ApiOperation(
             value = "List of all categories and Todo for today",
             notes = "Returns the list of the Todo of a selected category",
@@ -114,7 +126,10 @@ public interface CategoryApi {
      * @param id
      * @return
      */
-    @GetMapping(value = APP_ROOT + "/categories/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = APP_ROOT + "/categories/users/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     @ApiOperation(
             value = "Category Details by user ID",
             notes = "Returns the list of the categories of a selected user", responseContainer = "List<CategoryDto>")
@@ -131,7 +146,9 @@ public interface CategoryApi {
      * @param id
      * @return
      */
-    @GetMapping(value = APP_ROOT + "/categories/{id:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = APP_ROOT + "/categories/{id:.+}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Category Details", notes = "Returns the list of the users", response = CategoryDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Category"),
@@ -147,7 +164,7 @@ public interface CategoryApi {
      * @param id
      * @return
      */
-    @DeleteMapping(value = APP_ROOT + APP_ROOT + "/categories/{id:.+}")
+    @DeleteMapping(value = APP_ROOT + "/categories/{id:.+}")
     @ApiOperation(value = "Delete category", notes = "Deletes a category by ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The category deleted"),
