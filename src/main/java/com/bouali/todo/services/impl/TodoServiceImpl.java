@@ -24,11 +24,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TodoServiceImpl implements TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public TodoServiceImpl(TodoRepository todoRepository, CategoryRepository categoryRepository) {
+        this.todoRepository = todoRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public TodoDto save(TodoDto todoDto) {

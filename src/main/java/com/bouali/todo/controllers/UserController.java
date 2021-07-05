@@ -15,8 +15,11 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController implements UserApi {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public ResponseEntity<UserDto> createUser(UserDto user) {

@@ -17,11 +17,14 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CategoryController implements CategoryApi {
 
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public CategoryController(TodoService todoService, CategoryService categoryService) {
+        this.todoService = todoService;
+        this.categoryService = categoryService;
+    }
 
     @Override
     public ResponseEntity<CategoryDto> createCategory(CategoryDto categoryDto) {

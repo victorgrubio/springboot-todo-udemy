@@ -16,11 +16,14 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class TodoController implements TodoApi {
 
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public TodoController(TodoService todoService, CategoryService categoryService) {
+        this.todoService = todoService;
+        this.categoryService = categoryService;
+    }
 
     @Override
     public ResponseEntity<TodoDto> createTodo(TodoDto userDto) {
