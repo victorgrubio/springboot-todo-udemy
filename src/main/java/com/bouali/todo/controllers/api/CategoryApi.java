@@ -16,9 +16,9 @@ import static com.bouali.todo.utils.Constants.APP_ROOT;
 public interface CategoryApi {
 
     /**
-     *
-     * @param categoryDto
-     * @return
+     * POST /categories - Create a new category
+     * @param categoryDto DTO with the category data
+     * @return The created Category
      */
     @PostMapping(
             value = APP_ROOT + "/categories",
@@ -34,8 +34,7 @@ public interface CategoryApi {
             @ApiResponse(code = 201, message = "The newly created Category.")
     })
     ResponseEntity<CategoryDto> createCategory(
-            @ApiParam(value = "Category DTO", required = true)
-            @RequestBody CategoryDto categoryDto
+            @ApiParam(value = "Category DTO", required = true) @RequestBody CategoryDto categoryDto
     );
 
     /**
@@ -57,12 +56,12 @@ public interface CategoryApi {
             @ApiResponse(code = 201, message = "The newly created user.")
     })
     ResponseEntity<CategoryDto> updateCategory(
-            @ApiParam(value = "Category DTO", required = true)
-            @RequestBody CategoryDto user
+            @ApiParam(value = "Category DTO", required = true) @RequestBody CategoryDto user
     );
 
     /**
-     * @return
+     * GET /categories - Returns a list of categories
+     * @return ResponseEntity<List<CategoryDto>> List of categories
      */
     @GetMapping(
             value = APP_ROOT + "/categories",
@@ -79,8 +78,9 @@ public interface CategoryApi {
     ResponseEntity<List<CategoryDto>> getAllCategories();
 
     /**
-     * @param id
-     * @return
+     * GET /categories/todos/id - Get a category of todos
+     * @param id The category id
+     * @return List<TodoDto>> List of To-do tasks of the category
      */
     @GetMapping(
             value = APP_ROOT + "/categories/todos/{id:.+}",
@@ -89,20 +89,20 @@ public interface CategoryApi {
     @ApiOperation(
             value = "Todo Details by category ID",
             notes = "Returns the list of the Todo of a selected category",
-            responseContainer = "List<CategoryDto>"
+            responseContainer = "List<TodoDto>"
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of the Todos"),
     })
     ResponseEntity<List<TodoDto>> getAllTodoByCategoriesId(
             @ApiParam(value = "Category ID", required = true)
-            @PathParam(value = "id")
-            @PathVariable Long id
+            @PathParam(value = "id") @PathVariable Long id
     );
 
     /**
-     * @param userId
-     * @return
+     * GET /categories/todos/today/userId - Get all categories for today
+     * @param userId Id of user to get data
+     * @return The list of to-do associated with the day
      */
     @GetMapping(
             value = APP_ROOT + "/categories/todos/today/{userId:.+}",
@@ -118,13 +118,14 @@ public interface CategoryApi {
     })
     ResponseEntity<List<TodoDto>> getAllTodoByCategoriesForToday(
             @ApiParam(value = "User ID", required = true)
-            @PathParam(value = "userId")
-            @PathVariable Long userId
+            @PathParam(value = "userId") @PathVariable Long userId
     );
 
     /**
-     * @param id
-     * @return
+     * GET /categories/user/{id}
+     * Get categories of a concrete user
+     * @param id Id of the user
+     * @return List of categories DTO asociated with the user
      */
     @GetMapping(
             value = APP_ROOT + "/categories/users/{id}",
@@ -138,13 +139,14 @@ public interface CategoryApi {
     })
     ResponseEntity<List<CategoryDto>> getAllCategoriesByUserId(
             @ApiParam(value = "User ID", required = true)
-            @PathParam(value = "id")
-            @PathVariable Long id
+            @PathParam(value = "id") @PathVariable Long id
     );
 
     /**
-     * @param id
-     * @return
+     * GET /categories/{}
+     * Get a concrete category by id
+     * @param id Id of category
+     * @return The category requested
      */
     @GetMapping(
             value = APP_ROOT + "/categories/{id:.+}",
@@ -156,13 +158,13 @@ public interface CategoryApi {
     })
     ResponseEntity<CategoryDto> getCategory(
             @ApiParam(value = "The category id", required = true)
-            @PathParam(value = "id")
-            @PathVariable Long id
+            @PathParam(value = "id") @PathVariable Long id
     );
 
     /**
-     * @param id
-     * @return
+     * DELETE /categories/id
+     * @param id Id of category to be deleted
+     * @return Response entity
      */
     @DeleteMapping(value = APP_ROOT + "/categories/{id:.+}")
     @ApiOperation(value = "Delete category", notes = "Deletes a category by ID")
