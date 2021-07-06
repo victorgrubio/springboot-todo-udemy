@@ -2,7 +2,6 @@ package com.bouali.todo.services.impl;
 
 import com.bouali.todo.dto.CategoryDto;
 import com.bouali.todo.dto.TodoDto;
-import com.bouali.todo.dto.UserDto;
 import com.bouali.todo.exception.EntityNotFoundException;
 import com.bouali.todo.exception.ErrorCodes;
 import com.bouali.todo.exception.InvalidEntityException;
@@ -13,7 +12,6 @@ import com.bouali.todo.repositories.TodoRepository;
 import com.bouali.todo.services.TodoService;
 import com.bouali.todo.validators.TodoValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

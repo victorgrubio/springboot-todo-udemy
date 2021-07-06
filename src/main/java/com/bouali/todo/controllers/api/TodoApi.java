@@ -6,13 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
-import static com.bouali.todo.utils.Constants.APP_ROOT;
 
 
-@Api(APP_ROOT + "/todos")
+@Api( "/todos")
 public interface TodoApi {
 
     /**
@@ -21,7 +19,7 @@ public interface TodoApi {
      * @return The created to-do task
      */
     @PostMapping(
-            value = APP_ROOT + "/todos",
+            value =  "/todos",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -40,7 +38,7 @@ public interface TodoApi {
      * @return The task updated
      */
     @PatchMapping(
-            value = APP_ROOT + "/todos",
+            value =  "/todos",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -57,7 +55,7 @@ public interface TodoApi {
      * GET /todos - List all todos available
      * @return List of TodoDTO
      */
-    @GetMapping(value = APP_ROOT + "/todos", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =  "/todos", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Todo Details", notes = "Returns the list of the Todos", responseContainer = "List<TodoDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of the Todos"),
@@ -69,7 +67,7 @@ public interface TodoApi {
      * @param todoId Id of task to get
      * @return The todoTask requested
      */
-    @GetMapping(value = APP_ROOT + "/todos/{todoId:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =  "/todos/{todoId:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Todo Details", notes = "Returns the Todo", response = TodoDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Todo"),
@@ -85,13 +83,13 @@ public interface TodoApi {
      * @param id Id of the task
      * @return Response entity for the task that will be deleted
      */
-    @DeleteMapping(value = APP_ROOT + "/todos/{id:.+}")
+    @DeleteMapping(value =  "/todos/{id:.+}")
     @ApiOperation(value = "Delete Todo", notes = "Deletes a Todo by ID", response = TodoDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The Todo deleted"),
             @ApiResponse(code = 404, message = "Todo not found")
     })
-    ResponseEntity deleteTodo(
+    ResponseEntity<?> deleteTodo(
             @ApiParam(value = "The Todo id", required = true) @PathVariable Long id
     );
 }

@@ -3,7 +3,6 @@ package com.bouali.todo.controllers;
 import com.bouali.todo.controllers.api.UserApi;
 import com.bouali.todo.dto.UserDto;
 import com.bouali.todo.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +17,7 @@ public class UserController implements UserApi {
     private final UserService userService;
 
     public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
@@ -42,8 +42,8 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity deleteUser(Long id) {
+    public ResponseEntity<?> deleteUser(Long id) {
         userService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

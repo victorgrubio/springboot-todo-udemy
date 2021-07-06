@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.bouali.todo.utils.Constants.APP_ROOT;
-
-@Api(APP_ROOT + "/users")
+@Api( "/users")
 public interface UserApi {
 
     /**
@@ -19,7 +17,7 @@ public interface UserApi {
      * @return the created user
      */
     @PostMapping(
-            value = APP_ROOT + "/users",
+            value =  "/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -38,7 +36,7 @@ public interface UserApi {
      * @param user Content of the user that will be updated
      * @return The updated user
      */
-    @PatchMapping(value = APP_ROOT + "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value =  "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update user", notes = "Updates an existing user ", response = UserDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "The newly created user.")
@@ -51,7 +49,7 @@ public interface UserApi {
      * GET /users - Get list of users
      * @return A list of UserDTO containing user information
      */
-    @GetMapping(value = APP_ROOT + "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =  "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "User Details", notes = "Returns the list of the users", responseContainer = "List<UserDto")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of the users"),
@@ -63,7 +61,7 @@ public interface UserApi {
      * @param id Identifier of the user
      * @return The UserDTO containing the user information
      */
-    @GetMapping(value = APP_ROOT + "/users/{id:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =  "/users/{id:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "User Details", notes = "Returns the list of the users", response = UserDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The user"),
@@ -78,7 +76,7 @@ public interface UserApi {
      * @param id Id of the user that will be deleted
      * @return Response of the user delete method
      */
-    @DeleteMapping(value = APP_ROOT + "/users/{id:.+}")
+    @DeleteMapping(value =  "/users/{id:.+}")
     @ApiOperation(value = "Delete a user", notes = "Deletes a user by ID", response = UserDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The user"),

@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import static com.bouali.todo.utils.Constants.APP_ROOT;
-
 @Api("authApi")
 public interface AuthApi {
 
@@ -23,7 +21,7 @@ public interface AuthApi {
             @ApiResponse(code = 201, message = "The connected user.")
     })
     @PostMapping(
-            value = APP_ROOT + "/auth/login",
+            value = "/auth/login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

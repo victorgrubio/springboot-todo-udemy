@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-import static com.bouali.todo.utils.Constants.APP_ROOT;
 
-@Api(APP_ROOT + "/categories")
+@Api( "/categories")
 public interface CategoryApi {
 
     /**
@@ -21,7 +20,7 @@ public interface CategoryApi {
      * @return The created Category
      */
     @PostMapping(
-            value = APP_ROOT + "/categories",
+            value =  "/categories",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -43,7 +42,7 @@ public interface CategoryApi {
      * @return ResponseEntity<CategoryDto> The Category DTO containing the response data
      */
     @PatchMapping(
-            value = APP_ROOT + "/categories",
+            value =  "/categories",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -61,10 +60,10 @@ public interface CategoryApi {
 
     /**
      * GET /categories - Returns a list of categories
-     * @return ResponseEntity<List<CategoryDto>> List of categories
+     * @return  List of categories
      */
     @GetMapping(
-            value = APP_ROOT + "/categories",
+            value =  "/categories",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(
@@ -80,10 +79,10 @@ public interface CategoryApi {
     /**
      * GET /categories/todos/id - Get a category of todos
      * @param id The category id
-     * @return List<TodoDto>> List of To-do tasks of the category
+     * @return List(TodoDTO) List of To-do tasks of the category
      */
     @GetMapping(
-            value = APP_ROOT + "/categories/todos/{id:.+}",
+            value =  "/categories/todos/{id:.+}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(
@@ -105,7 +104,7 @@ public interface CategoryApi {
      * @return The list of to-do associated with the day
      */
     @GetMapping(
-            value = APP_ROOT + "/categories/todos/today/{userId:.+}",
+            value =  "/categories/todos/today/{userId:.+}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(
@@ -128,7 +127,7 @@ public interface CategoryApi {
      * @return List of categories DTO asociated with the user
      */
     @GetMapping(
-            value = APP_ROOT + "/categories/users/{id}",
+            value =  "/categories/users/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(
@@ -149,7 +148,7 @@ public interface CategoryApi {
      * @return The category requested
      */
     @GetMapping(
-            value = APP_ROOT + "/categories/{id:.+}",
+            value =  "/categories/{id:.+}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Category Details", notes = "Returns the list of the users", response = CategoryDto.class)
     @ApiResponses(value = {
@@ -166,13 +165,13 @@ public interface CategoryApi {
      * @param id Id of category to be deleted
      * @return Response entity
      */
-    @DeleteMapping(value = APP_ROOT + "/categories/{id:.+}")
+    @DeleteMapping(value =  "/categories/{id:.+}")
     @ApiOperation(value = "Delete category", notes = "Deletes a category by ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "The category deleted"),
             @ApiResponse(code = 404, message = "Category not found")
     })
-    ResponseEntity deleteCategory(
+    ResponseEntity<?> deleteCategory(
             @ApiParam(value = "The category id", required = true)
             @PathVariable Long id
     );

@@ -8,7 +8,6 @@ import com.bouali.todo.repositories.CategoryRepository;
 import com.bouali.todo.services.CategoryService;
 import com.bouali.todo.validators.CategoryValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;

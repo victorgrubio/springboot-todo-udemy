@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword())
                 .map(UserDto::fromEntity)
-                .orElseThrow(() -> new EntityNotFoundException("No user found with Email = " + user.getEmail() + " and Password = <HIDDEN_PASSWORD>", ErrorCodes.USER_NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "No user found with Email = " + user.getEmail() + " and Password = <HIDDEN_PASSWORD>",
+                        ErrorCodes.USER_NOT_FOUND
+                ));
     }
 }
