@@ -15,7 +15,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 
-@Tag(name="/categories")
+@Tag(name="categories")
 public interface CategoryApi {
 
     /**
@@ -29,37 +29,38 @@ public interface CategoryApi {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "Create category",
-            notes = "Creates a new category ",
-            response = CategoryDto.class
+            summary = "Create category",
+            description = "Creates a new category "
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 201, description = "The newly created Category.")
+            @ApiResponse(responseCode = "201", description = "The newly created Category.")
     })
     ResponseEntity<CategoryDto> createCategory(
-            @Parameter(value = "Category DTO", required = true) @RequestBody CategoryDto categoryDto
+            @Parameter(name = "Category DTO", required = true) @RequestBody CategoryDto categoryDto
     );
 
     /**
      * PATCH /categories - updates an existing category
      * @param user Category update body
+     * @param id The category id
      * @return ResponseEntity<CategoryDto> The Category DTO containing the response data
      */
     @PatchMapping(
-            value =  "/categories",
+            value =  "/categories/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "Update Category",
-            notes = "Updates an existing Category ",
-            response = CategoryDto.class
+            summary = "Update Category",
+            description = "Updates an existing Category "
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 201, description = "The newly created user.")
+            @ApiResponse(responseCode = "201", description = "The newly created user.")
     })
     ResponseEntity<CategoryDto> updateCategory(
-            @Parameter(value = "Category DTO", required = true) @RequestBody CategoryDto user
+            @Parameter(name = "id", description = "The Todo Id", required = true)
+            @PathParam(value = "id") @PathVariable Long id,
+            @Parameter(name = "Category DTO", required = true) @RequestBody CategoryDto user
     );
 
     /**
@@ -71,12 +72,11 @@ public interface CategoryApi {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "Category Details",
-            notes = "Returns the list of the categories",
-            responseContainer = "List<CategoryDto>"
+            summary = "Category Details",
+            description = "Returns the list of the categories"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "List of the categories"),
+            @ApiResponse(responseCode = "200", description = "List of the categories"),
     })
     ResponseEntity<List<CategoryDto>> getAllCategories();
 
@@ -90,16 +90,14 @@ public interface CategoryApi {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "Todo Details by category ID",
-            notes = "Returns the list of the Todo of a selected category",
-            responseContainer = "List<TodoDto>"
+            summary = "Todo Details by category ID",
+            description = "Returns the list of the Todo of a selected category"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "List of the Todos"),
+            @ApiResponse(responseCode = "200", description = "List of the Todos"),
     })
     ResponseEntity<List<TodoDto>> getAllTodoByCategoriesId(
-            @Parameter(value = "Category ID", required = true)
-            @PathParam(value = "id") @PathVariable Long id
+            @Parameter(name = "Category ID", required = true) @PathParam(value = "id") @PathVariable Long id
     );
 
     /**
@@ -112,37 +110,36 @@ public interface CategoryApi {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "List of all categories and Todo for today",
-            notes = "Returns the list of the Todo of a selected category",
-            responseContainer = "List<CategoryDto>"
+            summary = "List of all categories and Todo for today",
+            description = "Returns the list of the Todo of a selected category"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "List of the Todos"),
+            @ApiResponse(responseCode = "200", description = "List of the Todos"),
     })
     ResponseEntity<List<TodoDto>> getAllTodoByCategoriesForToday(
-            @Parameter(value = "User ID", required = true)
+            @Parameter(name = "User ID", required = true)
             @PathParam(value = "userId") @PathVariable Long userId
     );
 
     /**
      * GET /categories/user/{id}
      * Get categories of a concrete user
-     * @param id Id of the user
+     * @param userId Id of the user
      * @return List of categories DTO asociated with the user
      */
     @GetMapping(
-            value =  "/categories/users/{id}",
+            value =  "/categories/users/{userId:.+}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(
-            value = "Category Details by user ID",
-            notes = "Returns the list of the categories of a selected user", responseContainer = "List<CategoryDto>")
+            summary = "Category Details by user ID",
+            description = "Returns the list of the categories of a selected user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "List of the categories"),
+            @ApiResponse(responseCode = "200", description = "List of the categories"),
     })
     ResponseEntity<List<CategoryDto>> getAllCategoriesByUserId(
-            @Parameter(value = "User ID", required = true)
-            @PathParam(value = "id") @PathVariable Long id
+            @Parameter(name = "User ID", required = true)
+            @PathParam(value = "id") @PathVariable Long userId
     );
 
     /**
@@ -154,13 +151,13 @@ public interface CategoryApi {
     @GetMapping(
             value = "/categories/{id:.+}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(value = "Category Details", notes = "Returns the list of the users", response = CategoryDto.class)
+    @Operation(summary = "Category Details", description = "Returns the list of the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "The Category"),
-            @ApiResponse(responseCode = 404, description = "Category not found")
+            @ApiResponse(responseCode = "200", description = "The Category"),
+            @ApiResponse(responseCode = "404", description = "Category not found")
     })
     ResponseEntity<CategoryDto> getCategory(
-            @Parameter(value = "The category id", required = true)
+            @Parameter(name = "The category id", required = true)
             @PathParam(value = "id") @PathVariable Long id
     );
 
@@ -170,13 +167,13 @@ public interface CategoryApi {
      * @return Response entity
      */
     @DeleteMapping(value =  "/categories/{id:.+}")
-    @Operation(value = "Delete category", notes = "Deletes a category by ID")
+    @Operation(summary = "Delete category", description = "Deletes a category by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The category deleted"),
             @ApiResponse(responseCode = "404", description = "Category not found")
     })
     ResponseEntity<?> deleteCategory(
-            @Parameter(value = "The category id", required = true)
+            @Parameter(name = "The category id", required = true)
             @PathVariable Long id
     );
 }

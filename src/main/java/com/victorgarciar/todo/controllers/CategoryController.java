@@ -32,7 +32,7 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<CategoryDto> updateCategory(CategoryDto categoryDto) {
+    public ResponseEntity<CategoryDto> updateCategory(Long id, CategoryDto categoryDto) {
         return new ResponseEntity<>(categoryService.save(categoryDto), HttpStatus.CREATED);
     }
 
@@ -47,8 +47,8 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<List<CategoryDto>> getAllCategoriesByUserId(Long id) {
-        return new ResponseEntity<>(categoryService.findAllByUserId(id), HttpStatus.OK);
+    public ResponseEntity<List<CategoryDto>> getAllCategoriesByUserId(Long userId) {
+        return new ResponseEntity<>(categoryService.findAllByUserId(userId), HttpStatus.OK);
     }
 
     @Override

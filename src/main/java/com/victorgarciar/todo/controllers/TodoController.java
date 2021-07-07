@@ -30,7 +30,7 @@ public class TodoController implements TodoApi {
     }
 
     @Override
-    public ResponseEntity<TodoDto> updateTodo(TodoDto todoDto) {
+    public ResponseEntity<TodoDto> updateTodo(Long id, TodoDto todoDto) {
         return new ResponseEntity<>(todoService.save(todoDto), HttpStatus.CREATED);
     }
 
@@ -40,8 +40,8 @@ public class TodoController implements TodoApi {
     }
 
     @Override
-    public ResponseEntity<TodoDto> getTodo(Long todoId) {
-        return  new ResponseEntity<>(todoService.findById(todoId), HttpStatus.OK);
+    public ResponseEntity<TodoDto> getTodo(Long id) {
+        return  new ResponseEntity<>(todoService.findById(id), HttpStatus.OK);
     }
 
     @Override

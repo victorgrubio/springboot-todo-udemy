@@ -2,13 +2,18 @@ package com.victorgarciar.todo.controllers.api;
 
 import com.victorgarciar.todo.dto.UserDto;
 ;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag "/users")
+@Tag(name="users")
 public interface UserApi {
 
     /**
@@ -21,12 +26,12 @@ public interface UserApi {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @Operation(value = "Create user", notes = "Creates a new user ", response = UserDto.class)
+    @Operation(summary = "Create user", description = "Creates a new user ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 201, description = "The newly created user.")
+            @ApiResponse(responseCode = "201", description = "The newly created user.")
     })
     ResponseEntity<UserDto> createUser(
-            @Parameter(value = "User DTO", required = true)
+            @Parameter(name = "User DTO", required = true)
             @RequestBody UserDto user
     );
 
@@ -36,23 +41,27 @@ public interface UserApi {
      * @param user Content of the user that will be updated
      * @return The updated user
      */
-    @PatchMapping(value =  "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(value = "Update user", notes = "Updates an existing user ", response = UserDto.class)
+    @PatchMapping(
+            value =  "/users/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Update user", description = "Updates an existing user ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 201, description = "The newly created user.")
+            @ApiResponse(responseCode = "201", description = "The newly created user.")
     })
     ResponseEntity<UserDto> updateUser(
-            @Parameter(value = "User ID", required = true) @PathVariable Long id,
-            @Parameter(value = "User DTO", required = true) @RequestBody UserDto user);
+            @Parameter(name = "User ID", required = true) @PathVariable Long id,
+            @Parameter(name = "User DTO", required = true) @RequestBody UserDto user);
 
     /**
      * GET /users - Get list of users
      * @return A list of UserDTO containing user information
      */
     @GetMapping(value =  "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(value = "User Details", notes = "Returns the list of the users", responseContainer = "List<UserDto")
+    @Operation(summary = "User Details", description = "Returns the list of the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "List of the users"),
+            @ApiResponse(responseCode = "200", description = "List of the users"),
     })
     ResponseEntity<List<UserDto>> getAllUsers();
 
@@ -62,13 +71,13 @@ public interface UserApi {
      * @return The UserDTO containing the user information
      */
     @GetMapping(value =  "/users/{id:.+}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(value = "User Details", notes = "Returns the list of the users", response = UserDto.class)
+    @Operation(summary = "User Details", description = "Returns the list of the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "The user"),
-            @ApiResponse(responseCode = 404, description = "User not found")
+            @ApiResponse(responseCode = "200", description = "The user"),
+            @ApiResponse(responseCode = "404", description = "User not found")
     })
     ResponseEntity<UserDto> getUser(
-            @Parameter(value = "The use id", required = true) @PathVariable Long id
+            @Parameter(name = "The use id", required = true) @PathVariable Long id
     );
 
     /**
@@ -77,12 +86,12 @@ public interface UserApi {
      * @return Response of the user delete method
      */
     @DeleteMapping(value =  "/users/{id:.+}")
-    @Operation(value = "Delete a user", notes = "Deletes a user by ID", response = UserDto.class)
+    @Operation(summary = "Delete a user", description = "Deletes a user by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = 200, description = "The user"),
-            @ApiResponse(responseCode = 404, description = "User not found")
+            @ApiResponse(responseCode = "200", description = "The user"),
+            @ApiResponse(responseCode = "404", description = "User not found")
     })
     ResponseEntity deleteUser(
-            @Parameter(value = "The use id", required = true) @PathVariable Long id
+            @Parameter(name = "The use id", required = true) @PathVariable Long id
     );
 }
